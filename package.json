@@ -1,0 +1,15 @@
+{
+  "name": "rinha-with-js-2023",
+  "version": "1.0.0",
+  "description": "Using this to practice my Javascript on my original version of [Rinha de Backend in 2023 with Go](https://github.com/davidalecrim1/rinha-with-go-2023).",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.0"
+  }
+}
