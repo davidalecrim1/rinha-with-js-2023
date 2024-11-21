@@ -1,9 +1,16 @@
 import express from "express";
+import PersonRepository from "../infra/repository.js";
+import PersonService from "../app/service.js";
+import PersonController from "./controller.js";
+import { createDbPool } from "../infra/database.js";
 
 const router = express.Router();
 
-router.get("/test", (req, res) => {
-  res.status(200).send("test worked!");
-});
+const db = createDbPool();
+const personRepository = new PersonRepository(db);
+const personService = new PersonService(personRepository);
+const personController = new PersonController(personService);
+
+router.get("/person", (req, res) => personController.getPerson(req, res));
 
 export default router;

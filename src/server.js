@@ -1,5 +1,6 @@
 import express from "express";
 import router from "./web/routes.js";
+import db from "./infra/database.js";
 
 const PORT = process.env.PORT || 8080;
 const app = express();
@@ -19,3 +20,7 @@ export const createServer = () => {
     );
   });
 };
+
+process.on("exit", () => {
+  db.end();
+});
