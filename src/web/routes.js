@@ -12,4 +12,8 @@ const personController = new PersonController(personService);
 
 router.get("/person", (req, res) => personController.getPerson(req, res));
 
+router.get("/api/health", (req, res) => {
+  res.status(200).json({ status: "ok" });
+});
+
 export default router;

@@ -24,3 +24,5 @@ export const createServer = () => {
 process.on("exit", () => {
   db.end();
 });
+
+export default app;
