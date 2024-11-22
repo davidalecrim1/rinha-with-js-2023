@@ -31,6 +31,7 @@ describe("create a new person", () => {
     const response = await request(app).post("/pessoas").send(reqBody);
     expect(response.statusCode).toBe(201);
   });
+
   it("should not create a person with invalid name", async () => {
     const reqBody = {
       apelido: "Alice",
@@ -42,6 +43,31 @@ describe("create a new person", () => {
     const response = await request(app).post("/pessoas").send(reqBody);
     expect(response.statusCode).toBe(422);
   });
+
+  it("should not create a person with invalid type in name", async () => {
+    const reqBody = {
+      apelido: "Alice",
+      nome: 1,
+      nascimento: "2000-01-01",
+      stack: ["Python", "Go"],
+    };
+
+    const response = await request(app).post("/pessoas").send(reqBody);
+    expect(response.statusCode).toBe(400);
+  });
+
+  it("should not create a person with invalid type in stack", async () => {
+    const reqBody = {
+      apelido: "Alice",
+      nome: 1,
+      nascimento: "2000-01-01",
+      stack: [1, "Go"],
+    };
+
+    const response = await request(app).post("/pessoas").send(reqBody);
+    expect(response.statusCode).toBe(400);
+  });
+
   it("should not create a person with invalid dob", async () => {
     const reqBody = {
       apelido: "Alice",
@@ -62,7 +88,7 @@ describe("create a new person", () => {
     };
 
     const response = await request(app).post("/pessoas").send(reqBody);
-    expect(response.statusCode).toBe(422);
+    expect(response.statusCode).toBe(400);
   });
   it("should create a person without stack (empty)", async () => {
     const reqBody = {
@@ -144,7 +170,7 @@ describe("create a new person", () => {
     };
 
     const response = await request(app).post("/pessoas").send(reqBody);
-    expect(response.statusCode).toBe(422);
+    expect(response.statusCode).toBe(400);
   });
 });
 
@@ -201,6 +227,10 @@ describe("from the created people", () => {
       expect(res.statusCode).toBe(200);
       expect(res.body).toHaveLength(expectedLength);
     }
+  });
+  it("should not search people by invalid term", async () => {
+    const res = await request(app).get("/pessoas?t=");
+    expect(res.statusCode).toBe(400);
   });
 });
 

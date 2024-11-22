@@ -16,7 +16,7 @@ class PersonRepository {
         person.nickname,
         person.name,
         person.dob,
-        person.stack.join(" | "),
+        person.stack != null || undefined ? person.stack.join(" | ") : null,
       ];
 
       await this.db.query(query, values);
@@ -29,7 +29,10 @@ class PersonRepository {
 
   async GetPersonById(id) {
     try {
-      const query = `SELECT id, nickname, name, dob, string_to_array(stack, ' | ') as stack  FROM people WHERE id = $1`;
+      const query = `
+      SELECT id, nickname, name, dob, string_to_array(stack, ' | ') as stack 
+      FROM people 
+      WHERE id = $1`;
       const result = await this.db.query(query, [id]);
       return result.rows[0];
     } catch (err) {

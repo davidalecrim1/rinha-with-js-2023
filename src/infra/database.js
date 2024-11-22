@@ -9,6 +9,7 @@ const createDbPool = () => {
     database: process.env.DB_SCHEMA || "people",
     port: process.env.DB_PORT || 5432,
     max: process.env.DB_MAX_CONN || 50,
+    connectionTimeoutMillis: process.env.DB_CONN_TIMEOUT || 60000,
   });
 };
 
