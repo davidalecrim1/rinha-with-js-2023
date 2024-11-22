@@ -16,7 +16,7 @@ class PersonRepository {
         person.nickname,
         person.name,
         person.dob,
-        person.stack,
+        person.stack.join(" | "),
       ];
 
       await this.db.query(query, values);
@@ -27,9 +27,42 @@ class PersonRepository {
     }
   }
 
-  async GetPersonById() {}
-  async SearchPersons() {}
-  async GetPersonsCount() {}
+  async GetPersonById(id) {
+    try {
+      const query = `SELECT id, nickname, name, dob, string_to_array(stack, ' | ') as stack  FROM people WHERE id = $1`;
+      const result = await this.db.query(query, [id]);
+      return result.rows[0];
+    } catch (err) {
+      console.log(`error in getPersonsCount: ${err}`);
+      throw err;
+    }
+  }
+
+  async SearchPeople(term) {
+    try {
+      const query = `
+      SELECT id, nickname, name, dob, string_to_array(stack, ' | ') as stack 
+      FROM people
+      WHERE searchable LIKE $1 
+      LIMIT 50`;
+
+      const result = await this.db.query(query, [`%${term}%`]);
+      return result.rows;
+    } catch (err) {
+      console.log(`error in SearchPeople: ${err}`);
+      throw err;
+    }
+  }
+  async GetPersonsCount() {
+    try {
+      const query = `SELECT COUNT(id) FROM people`;
+      const result = await this.db.query(query);
+      return parseInt(result.rows[0].count);
+    } catch (err) {
+      console.log(`error in GetPersonsCount: ${err}`);
+      throw err;
+    }
+  }
 }
 
 export default PersonRepository;

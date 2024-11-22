@@ -1,0 +1,191 @@
+# Tests using the docker-compose-dev.yml
+
+POST http://localhost:9999/pessoas
+Content-Type: application/json
+
+{
+    "apelido" : "ana",
+    "nome" : "Ana Barbosa",
+    "nascimento" : "1985-09-23",
+    "stack" : ["Python"]
+}
+### Expected: 200
+
+POST http://localhost:9999/pessoas
+Content-Type: application/json
+
+{
+    "apelido" : "johndoe",
+    "nome" : "John Doe",
+    "nascimento" : "1985-09-23",
+    "stack" : ["Python", "Node"]
+}
+### Expected: 200
+
+POST http://localhost:9999/pessoas
+Content-Type: application/json
+
+{
+    "apelido" : "aninha",
+    "nome" : "Ana Oliveira",
+    "nascimento" : "1985-09-23",
+    "stack" : null
+}
+### Expected: 200
+
+POST http://localhost:9999/pessoas
+Content-Type: application/json
+
+{
+    "apelido" : "ana",
+    "nome" : null, // não pode ser null
+    "nascimento" : "1985-09-23",
+    "stack" : null
+}
+### Expected: 422
+
+
+POST http://localhost:9999/pessoas
+Content-Type: application/json
+
+{
+    "apelido" : "apelido",
+    "nome" : 1, // nome deve ser string e não número
+    "nascimento" : "1985-01-01",
+    "stack" : null
+}
+### Expected: 400
+
+GET http://localhost:9999/pessoas/110e6f36-71e1-4a9e-bbe3-9b5cabe33de9
+Content-Type: application/json
+
+### Expected: 404
+
+GET http://localhost:9999/pessoas/848fd60b-46be-40c8-8280-d4a0f334a87c
+Content-Type: application/json
+
+### Expected: 200
+### Need to know the UUID in the database or have been inserted
+
+GET http://localhost:9999/pessoas?t=python
+Content-Type: application/json
+
+### Expected: 200
+
+GET http://localhost:9999/pessoas?t=none
+Content-Type: application/json
+
+### Expected: 200
+### Body: []
+
+GET http://localhost:9999/pessoas?t=
+Content-Type: application/json
+
+### Expected: 400
+
+GET http://localhost:9999/contagem-pessoas
+Content-Type: application/json
+
+### Expected: 200
+
+### Tests using the docker-compose-qa.yml
+
+POST http://localhost:9999/pessoas
+Content-Type: application/json
+
+{
+    "apelido" : "ana",
+    "nome" : "Ana Barbosa",
+    "nascimento" : "1985-09-23",
+    "stack" : ["Python"]
+}
+
+###
+
+POST http://localhost:9999/pessoas
+Content-Type: application/json
+
+{
+    "apelido" : "john",
+    "nome" : "John Doe",
+    "nascimento" : "1985-09-23",
+    "stack" : ["Node"]
+}
+
+###
+
+POST http://localhost:9999/pessoas
+Content-Type: application/json
+
+{
+    "apelido" : "markus",
+    "nome" : "Markus Santana",
+    "nascimento" : "1985-09-23",
+    "stack" : ["Node", "Python"]
+}
+
+###
+
+POST http://localhost:9999/pessoas
+Content-Type: application/json
+
+{
+    "apelido" : "joana",
+    "nome" : "Joana Santana",
+    "nascimento" : "INVALID_DATE",
+    "stack" : ["Node", "Python"]
+}
+
+###
+
+GET http://localhost:9999/contagem-pessoas
+Connection: keep-alive
+Content-Type: application/json
+
+### This makes new connections faster given the opened TCP connection.
+
+GET http://localhost:9999/contagem-pessoas HTTP/1.1
+connection: close
+content-type: application/json
+### This increases the latency given the TCP connection needs to be reopen.
+
+GET http://localhost:9999/pessoas?t=python
+###
+
+GET http://localhost:9999/pessoas?t=node
+###
+
+POST http://localhost:9999/pessoas
+Content-Type: application/json
+
+{
+    "apelido" : "ana",
+    "nome" : "Ana Barbosa",
+    "nascimento" : "1985-01-01",
+    "stack" : ["Python"]
+}
+###
+
+GET http://localhost:9999/pessoas/34aafceb-325d-48a6-b16b-9de90d3578a8
+Content-Type: application/json
+
+###
+
+GET http://localhost:9999/pessoas?t=mJTySfIOlaCMwZXZUnzwGZVX+pyLLxA
+Content-Type: application/json
+###
+
+GET http://localhost:9999/contagem-pessoas HTTP/1.1
+content-type: application/json
+###
+
+
+## For testing on Docker Compose in Linux
+
+GET http://localhost:8081/contagem-pessoas HTTP/1.1
+content-type: application/json
+###
+
+GET http://localhost:8082/contagem-pessoas HTTP/1.1
+content-type: application/json
+###

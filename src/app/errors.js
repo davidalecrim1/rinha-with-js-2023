@@ -4,8 +4,8 @@ export class PersonAlreadyExists extends Error {
   }
 }
 
-export class PersonInvalidNickname extends Error {
-  constructor(message = "Person nickname is invalid!") {
+export class InvalidPerson extends Error {
+  constructor(message = "Invalid person!") {
     super(message);
   }
 }
