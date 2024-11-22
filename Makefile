@@ -12,6 +12,9 @@ dev-restart:
 	make dev-stop
 	make dev-build-and-run
 
+clear-cache:
+	npm cache clean --force
+
 # For testing with full environment in Windows or MacOS (limits, nginx, etc)
 build-and-run:
 	docker compose -f ./docker-compose.yml up -d --build

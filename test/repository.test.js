@@ -1,14 +1,12 @@
 import { describe, expect, it, beforeAll, afterAll } from "@jest/globals";
 import PersonRepository from "../src/infra/repository.js";
-import { createDbPool } from "../src/infra/database.js";
+import db from "../src/infra/database.js";
 import { PersonAlreadyExists } from "../src/app/errors.js";
 
 describe("create person", () => {
-  let db;
   let repo;
 
   beforeAll(() => {
-    db = createDbPool();
     repo = new PersonRepository(db);
   });
 
