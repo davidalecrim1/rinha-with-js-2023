@@ -13,9 +13,10 @@ services:
       - DB_PASSWORD=password
       - DB_PORT=5432
       - DB_SCHEMA=people
-      - DB_MAX_CONN=25
-      - DB_CONN_TIMEOUT=20000
-      - CLUSTER_WORKER=2
+      - DB_MAX_CONN=12
+      - DB_CONN_TIMEOUT=30000
+      - CLUSTER_WORKER=4
+      - REQ_TIMEOUT=40s
     depends_on:
       - postgres-db
     expose:

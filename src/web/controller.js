@@ -1,29 +1,6 @@
-import { body, validationResult } from "express-validator";
+import { validationResult } from "express-validator";
 import { Person } from "../app/domain.js";
-import { InvalidPerson, PersonAlreadyExists } from "../app/errors.js";
-
-export const personValidation = [
-  body("apelido").exists().notEmpty().isString().isLength({ max: 32 }),
-  body("nome").exists().notEmpty().isString().isLength({ max: 100 }),
-  body("nascimento")
-    .exists()
-    .notEmpty()
-    .isString()
-    .matches(/^\d{4}-\d{2}-\d{2}$/), // Regex to match the format YYYY-MM-DD,
-  body("stack")
-    .isArray()
-    .optional({ nullable: true })
-    .custom((value) => {
-      if (
-        Array.isArray(value) &&
-        value.every((item) => typeof item === "string" && item.length <= 32)
-      )
-        return true;
-      else {
-        throw new InvalidPerson();
-      }
-    }),
-];
+import { PersonAlreadyExists } from "../app/errors.js";
 
 class PersonController {
   constructor(personService) {

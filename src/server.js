@@ -1,13 +1,19 @@
 import express from "express";
 import router from "./web/routes.js";
 import db from "./infra/database.js";
+import { timeoutMiddleware } from "./web/middleware.js";
+import timeout from "connect-timeout";
 
 const PORT = process.env.PORT || 8080;
 const app = express();
+
 let server;
 
 export const createServer = () => {
   app.use(express.json());
+
+  app.use(timeout(process.env.REQ_TIMEOUT || "20s"));
+  app.use(timeoutMiddleware);
 
   app.use("/", router);
 
