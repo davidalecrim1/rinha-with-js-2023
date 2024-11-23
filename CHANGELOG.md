@@ -85,3 +85,44 @@ Output:
 > status.find.in(201,422,400), but actually found 503                 2 ( 0.00%)
 ================================================================================
 ```
+
+
+## [v0.0.3] - 2024-11-23
+ 
+Changed:
+- Gave more CPU and memory to Node.
+- Add logging with Pino.
+
+Output:
+- **/contagem-pessoas** -> 32626
+- **Gatling output**: rinhabackendsimulation-20241123160055669
+- **commit**: 7959d3639b3d8d61771ff663adcd0d7dca99dbf6
+
+```
+================================================================================
+---- Global Information --------------------------------------------------------
+> request count                                      97747 (OK=70711  KO=27036 )
+> min response time                                      0 (OK=0      KO=0     )
+> max response time                                  21349 (OK=21349  KO=375   )
+> mean response time                                  1008 (OK=1393   KO=2     )
+> std deviation                                       2071 (OK=2322   KO=6     )
+> response time 50th percentile                         71 (OK=467    KO=1     )
+> response time 75th percentile                       1390 (OK=2089   KO=1     )
+> response time 95th percentile                       3899 (OK=4556   KO=5     )
+> response time 99th percentile                      10959 (OK=12602  KO=18    )
+> mean requests/sec                                465.462 (OK=336.719 KO=128.743)
+---- Response Time Distribution ------------------------------------------------
+> t < 800 ms                                         40167 ( 41%)
+> 800 ms <= t < 1200 ms                               4347 (  4%)
+> t >= 1200 ms                                       26197 ( 27%)
+> failed                                             27036 ( 28%)
+---- Errors --------------------------------------------------------------------
+> j.i.IOException: Premature close                                20637 (76.33%)
+> status.find.in(201,422,400), but actually found 502              3597 (13.30%)
+> status.find.in(201,422,400), but actually found 500              1116 ( 4.13%)
+> status.find.in([200, 209], 304), found 502                        755 ( 2.79%)
+> status.find.in([200, 209], 304), found 500                        607 ( 2.25%)
+> status.find.is(400), but actually found 502                       257 ( 0.95%)
+> status.find.is(400), but actually found 500                        67 ( 0.25%)
+================================================================================
+```
