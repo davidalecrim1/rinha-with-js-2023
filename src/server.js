@@ -3,6 +3,7 @@ import router from "./web/routes.js";
 import db from "./infra/database.js";
 import { timeoutMiddleware } from "./web/middleware.js";
 import timeout from "connect-timeout";
+import logger from "./infra/logger.js";
 
 const PORT = process.env.PORT || 8080;
 const app = express();
@@ -22,7 +23,7 @@ export const createServer = () => {
   });
 
   server = app.listen(PORT, () => {
-    console.log(
+    logger.info(
       `Worker process ${process.pid} is running on http://localhost:${PORT}`
     );
   });

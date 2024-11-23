@@ -1,6 +1,7 @@
 import { validationResult } from "express-validator";
 import { Person } from "../app/domain.js";
 import { PersonAlreadyExists } from "../app/errors.js";
+import logger from "../infra/logger.js";
 
 class PersonController {
   constructor(personService) {
@@ -25,7 +26,7 @@ class PersonController {
 
       res.status(200).json(response);
     } catch (err) {
-      console.log(`error in getPerson: ${err.stack}`);
+      logger.error(`error in getPerson: ${err.stack}`);
       res.status(500).send();
     }
   }
@@ -60,7 +61,7 @@ class PersonController {
       if (err instanceof PersonAlreadyExists) {
         return res.sendStatus(422);
       }
-      console.log(`error in createPerson: ${err.stack}`);
+      logger.error(`error in createPerson: ${err.stack}`);
       res.status(500).send();
     }
   }
@@ -70,7 +71,7 @@ class PersonController {
       const count = await this.personService.GetPersonsCount();
       res.status(200).json(count);
     } catch (err) {
-      console.log(`error in countPeople: ${err.stack}`);
+      logger.error(`error in countPeople: ${err.stack}`);
       res.sendStatus(500);
     }
   }
@@ -92,7 +93,7 @@ class PersonController {
 
       res.status(200).json(response);
     } catch (err) {
-      console.log(`error in SearchPeople: ${err.stack}`);
+      logger.error(`error in SearchPeople: ${err.stack}`);
       res.sendStatus(500);
     }
   }

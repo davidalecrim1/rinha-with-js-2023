@@ -26,8 +26,8 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.125'
-          memory: '0.5GB'
+          cpus: '0.250'
+          memory: '0.750GB'
   js-app-2:
     <<: *js-app-config
     container_name: js-app-2
@@ -67,8 +67,8 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '1.125'
-          memory: '1.5GB'
+          cpus: '0.875'
+          memory: '1GB'
   pgadmin-ui: # This is to help monitor postgres on tests. Not part of rinha.
     image: dpage/pgadmin4
     container_name: pgadmin-ui

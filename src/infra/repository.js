@@ -1,4 +1,5 @@
 import { PersonAlreadyExists } from "../app/errors.js";
+import logger from "./logger.js";
 
 class PersonRepository {
   constructor(db) {
@@ -36,7 +37,7 @@ class PersonRepository {
       const result = await this.db.query(query, [id]);
       return result.rows[0];
     } catch (err) {
-      console.log(`error in getPersonsCount: ${err}`);
+      logger.error(`error in getPersonsCount: ${err}`);
       throw err;
     }
   }
@@ -52,7 +53,7 @@ class PersonRepository {
       const result = await this.db.query(query, [`%${term}%`]);
       return result.rows;
     } catch (err) {
-      console.log(`error in SearchPeople: ${err}`);
+      logger.error(`error in SearchPeople: ${err}`);
       throw err;
     }
   }
@@ -62,7 +63,7 @@ class PersonRepository {
       const result = await this.db.query(query);
       return parseInt(result.rows[0].count);
     } catch (err) {
-      console.log(`error in GetPersonsCount: ${err}`);
+      logger.error(`error in GetPersonsCount: ${err}`);
       throw err;
     }
   }
