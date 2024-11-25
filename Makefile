@@ -15,6 +15,10 @@ dev-restart:
 clear-cache:
 	npm cache clean --force
 
+deno-run:
+	git checkout deno-version
+	deno run -A ./src/deno.js
+
 # For testing with full environment in Windows or MacOS (limits, nginx, etc)
 build-and-run:
 	docker compose -f ./docker-compose.yml up -d --build

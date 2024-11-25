@@ -1,11 +1,7 @@
-FROM node:22.9-alpine
+FROM denoland/deno:alpine-2.1.1
 
 WORKDIR /app
 
-COPY package*.json ./
-
-RUN npm install
-
 COPY ./src ./src
 
-CMD ["node", "./src/cluster.js"]
+CMD ["deno", "run", "--allow-net", "--allow-read","--allow-env", "./src/main.ts"]

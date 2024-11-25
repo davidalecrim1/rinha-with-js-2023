@@ -6,17 +6,14 @@ services:
       context: .
       dockerfile: Dockerfile
     environment:
-      - LOG_LEVEL=INFO
+      - LOG_LEVEL=info
       - PORT=80
       - DB_HOST=postgres-db
       - DB_USER=admin
       - DB_PASSWORD=password
       - DB_PORT=5432
       - DB_SCHEMA=people
-      - DB_MAX_CONN=12
-      - DB_CONN_TIMEOUT=30000
-      - CLUSTER_WORKER=4
-      - REQ_TIMEOUT=40s
+      - DB_MAX_CONN=50
     depends_on:
       - postgres-db
     expose:

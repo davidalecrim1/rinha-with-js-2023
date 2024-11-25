@@ -3,9 +3,3 @@ export class PersonAlreadyExists extends Error {
     super(message);
   }
 }
-
-export class InvalidPerson extends Error {
-  constructor(message = "Invalid person!") {
-    super(message);
-  }
-}

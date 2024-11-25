@@ -1,1 +1,0 @@
-export NODE_OPTIONS=--experimental-require-module npm test
