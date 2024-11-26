@@ -164,3 +164,40 @@ Output:
 > status.find.is(400), but actually found 500                         1 ( 0.08%)
 ================================================================================
 ```
+
+## [v0.0.5] - 2024-11-26
+
+Changed the data validation for the domain. Seems more right than before with 46k. Deno is really fast.
+
+Output:
+- **/contagem-pessoas** -> 46072
+- **Gatling output**: rinhabackendsimulation-20241126140037644
+- **commit**: a923167c377541a34f24243098361a91fb22bf4c
+
+
+```
+===============================================================================
+---- Global Information --------------------------------------------------------
+> request count                                     114500 (OK=113131 KO=1369  )
+> min response time                                      0 (OK=0      KO=0     )
+> max response time                                   3504 (OK=3504   KO=84    )
+> mean response time                                    98 (OK=99     KO=21    )
+> std deviation                                        292 (OK=294    KO=21    )
+> response time 50th percentile                          2 (OK=2      KO=14    )
+> response time 75th percentile                          6 (OK=5      KO=35    )
+> response time 95th percentile                        913 (OK=918    KO=62    )
+> response time 99th percentile                       1255 (OK=1258   KO=71    )
+> mean requests/sec                                 553.14 (OK=546.527 KO=6.614 )
+---- Response Time Distribution ------------------------------------------------
+> t < 800 ms                                        105361 ( 92%)
+> 800 ms <= t < 1200 ms                               6354 (  6%)
+> t >= 1200 ms                                        1416 (  1%)
+> failed                                              1369 (  1%)
+---- Errors --------------------------------------------------------------------
+> j.i.IOException: Premature close                                 1357 (99.12%)
+> status.find.in(201,422,400), but actually found 500                11 ( 0.80%)
+> status.find.is(400), but actually found 500                         1 ( 0.07%)
+================================================================================
+```
+
+
