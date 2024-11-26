@@ -10,7 +10,7 @@ class PersonRepository {
     this.db = db;
   }
 
-  async CreatePerson(person: Person): Promise<void> {
+  async CreatePerson(person: Person) {
     const client = await this.db.connect();
 
     try {
@@ -29,8 +29,12 @@ class PersonRepository {
       await client.queryObject(query, values);
     } catch (err: any) {
       if (err.fields.code === "23505") {
+        logger.debug(
+          `CreatePerson - Repository - Person Already Exists: ${err}`,
+        );
         throw new PersonAlreadyExists();
       } else {
+        logger.error(`error in CreatePerson: ${err}`);
         throw err;
       }
     } finally {
@@ -38,7 +42,7 @@ class PersonRepository {
     }
   }
 
-  async GetPersonById(id: string): Promise<Person | undefined> {
+  async GetPersonById(id: string) {
     const client = await this.db.connect();
 
     try {
@@ -47,16 +51,7 @@ class PersonRepository {
       FROM people 
       WHERE id = $1`;
 
-      const result = await client.queryObject<
-        {
-          id: string;
-          nickname: string;
-          name: string;
-          dob: string;
-          stack: string[];
-        }
-      >(query, [id]);
-
+      const result = await client.queryObject<Person>(query, [id]);
       return result.rows[0];
     } catch (err: any) {
       logger.error(`error in GetPersonById: ${err}`);
@@ -66,7 +61,7 @@ class PersonRepository {
     }
   }
 
-  async SearchPeople(term: string): Promise<Person[]> {
+  async SearchPeople(term: string) {
     const client = await this.db.connect();
     try {
       const query = `
@@ -75,15 +70,7 @@ class PersonRepository {
       WHERE searchable LIKE $1 
       LIMIT 50`;
 
-      const result = await client.queryObject<
-        {
-          id: string;
-          nickname: string;
-          name: string;
-          dob: string;
-          stack: string[];
-        }
-      >(query, [`%${term}%`]);
+      const result = await client.queryObject<Person>(query, [`%${term}%`]);
       return result.rows;
     } catch (err: any) {
       logger.error(`error in SearchPeople: ${err}`);
@@ -93,7 +80,7 @@ class PersonRepository {
     }
   }
 
-  async GetPersonsCount(): Promise<number> {
+  async GetPersonsCount() {
     const client = await this.db.connect();
     try {
       const query = `SELECT COUNT(id) FROM people`;
