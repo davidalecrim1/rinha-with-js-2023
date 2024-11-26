@@ -126,3 +126,41 @@ Output:
 > status.find.is(400), but actually found 500                        67 ( 0.25%)
 ================================================================================
 ```
+
+## [v0.0.4] - 2024-11-25
+
+Refactored to Deno 2.0. There still a validation error, but I can see this is really fast.
+
+Output:
+- **/contagem-pessoas** -> 50258
+- **Gatling output**: rinhabackendsimulation-20241126100413528
+- **commit**: 69dd78384a287fe3efc263be1c4fb5aa70a5ea93
+
+
+```
+================================================================================
+---- Global Information --------------------------------------------------------
+> request count                                      69505 (OK=68201  KO=1304  )
+> min response time                                      0 (OK=0      KO=0     )
+> max response time                                  10057 (OK=10057  KO=10018 )
+> mean response time                                   196 (OK=187    KO=686   )
+> std deviation                                        600 (OK=490    KO=2522  )
+> response time 50th percentile                          2 (OK=2      KO=1     )
+> response time 75th percentile                         28 (OK=29     KO=2     )
+> response time 95th percentile                       1391 (OK=1382   KO=10002 )
+> response time 99th percentile                       2067 (OK=2027   KO=10003 )
+> mean requests/sec                                330.976 (OK=324.767 KO=6.21  )
+---- Response Time Distribution ------------------------------------------------
+> t < 800 ms                                         61000 ( 88%)
+> 800 ms <= t < 1200 ms                               3138 (  5%)
+> t >= 1200 ms                                        4063 (  6%)
+> failed                                              1304 (  2%)
+---- Errors --------------------------------------------------------------------
+> j.i.IOException: Premature close                                 1211 (92.87%)
+> i.n.c.ConnectTimeoutException: connection timed out: localhost     89 ( 6.83%)
+/0:0:0:0:0:0:0:1:9999
+> status.find.in(201,422,400), but actually found 500                 2 ( 0.15%)
+> status.find.in([200, 209], 304), found 500                          1 ( 0.08%)
+> status.find.is(400), but actually found 500                         1 ( 0.08%)
+================================================================================
+```
