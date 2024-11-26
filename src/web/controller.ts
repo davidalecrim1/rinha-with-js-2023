@@ -59,7 +59,10 @@ class PersonController {
       }
 
       for (const stack of data.stack ?? []) {
-        if (stack.length > 32) {
+        if (
+          stack === null || stack === undefined || typeof stack != "string" ||
+          stack.length > 32
+        ) {
           logger.debug(
             `CreatePerson - invalid request: ${JSON.stringify(data)}`,
           );
