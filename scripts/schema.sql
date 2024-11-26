@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS people (
     dob TEXT NOT NULL,
     stack TEXT,
     searchable TEXT GENERATED ALWAYS AS (
-        nickname || ' ' || name || ' ' || lower(stack)
+        nickname || ' ' || name || ' ' || lower(COALESCE(stack, ''))
     ) STORED
 );
 
